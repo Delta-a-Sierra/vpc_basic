@@ -21,13 +21,14 @@ resource "aws_route" "internet_access" {
 }
 
 resource "aws_subnet" "public" {
+  count = length(var.public_subnet)
   vpc_id                  = aws_vpc.tfb.id
-  cidr_block              = var.public_subnet
+  cidr_block              = var.public_subnet[count.index]
   map_public_ip_on_launch = var.map_public_ip_on_launch
   
-  availability_zone = var.subnet_az
+  availability_zone = "${element(var.subnet_az, count.index )}"
   tags = {
-    Name = "${var.name}-public"
+    Name = "${var.name}-public-${count.index}"
   }
 
 }

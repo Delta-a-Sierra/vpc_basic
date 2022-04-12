@@ -9,8 +9,8 @@ variable "cidr" {
 }
 
 variable "public_subnet" {
-  type        = string
-  description = "The public subnet to create."
+  type        = list
+  description = "a list of public subnets to create"
 }
 
 variable "enable_dns_hostnames" {
@@ -31,19 +31,8 @@ variable "map_public_ip_on_launch" {
   type        = bool
 }
 
-output "public_subnet_id" {
-  value = aws_subnet.public.id
-}
-
-output "vpc_id" {
-  value = aws_vpc.tfb.id
-}
-
-output "cidr" {
-  value = aws_vpc.tfb.cidr_block
-}
 
 variable "subnet_az" {
-  type = string
+  type = list
   description = "The AZ which the subnet will be created in"
 }
